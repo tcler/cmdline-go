@@ -155,27 +155,19 @@ func argparse (options []Option, argv []string) (ParseStat, []string, string, st
 					argv2 = append(argv2, "-" + s)
 					continue
 				} else {
-					//fixme
 					argtype = opt.Argtype
 					if len(opt.Link) > 0 {
 						optlink2 := getOptObj(options, opt.Link, false, nil)
 						if optlink2 != nil {
 							argtype = optlink2.Argtype
 						}
-					} else {
-						argv2 = append(argv2, "-" + s)
-						continue
 					}
 
 					switch argtype {
-					case N:
-						argv2 = append(argv2, "-" + s)
 					case O:
 						argv2 = append(argv2, "-" + s + "=" + optname)
-						break
-					case Y, M:
+					default:
 						argv2 = append(argv2, "-" + s)
-						continue
 					}
 				}
 			}
