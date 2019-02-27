@@ -205,6 +205,7 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 	var stat ParseStat
 	var nesting int
 
+	Parseloop:
 	for len(nargv) > 0 {
 		prefix := "-"
 		curarg := nargv[0]
@@ -256,7 +257,7 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 		case END:
 			//end of nargv or get --
 			args = append(args, nargv...)
-			break
+			break Parseloop
 		}
 	}
 
