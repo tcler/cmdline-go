@@ -251,9 +251,9 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 				optmap[optname] = append(optmap[optname], optarg)
 			}
 		case NEEDARG:
-			invalid_opts = append(invalid_opts, "option -" + optname + " need argument")
+			invalid_opts = append(invalid_opts, "option: '" + optname + "' need argument")
 		case UNKNOWN:
-			invalid_opts = append(invalid_opts, "option -" + optname + " undefined")
+			invalid_opts = append(invalid_opts, "option: '" + optname + "' undefined")
 		case END:
 			//end of nargv or get --
 			args = append(args, nargv...)
