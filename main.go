@@ -4,6 +4,7 @@ import (
 	"fmt";
 	"os";
 	"getopt";
+	"strings";
 )
 
 func main() {
@@ -17,8 +18,9 @@ func main() {
 		{Help: "Options group1:"},
 		{Names: []string{"h", "H", "help"}, Argtype: getopt.N, Help: "out put the usage info"},
 		{Names: []string{"f", "F", "file"}, Argtype: getopt.M, Help: "file to be parse"},
-		{Names: []string{"wenj", "wenjian"}, Link: "f", Hide: true},
-		{Names: []string{"x"}, Argtype: getopt.Y, Help: "dump binary data to text", Hide: false},
+		{Names: []string{"wenj", "wenjian"}, Link: "f", Hide: true, Help: "deprecated use f instead"},
+		{Names: []string{"v"}, Argtype: getopt.N, Help: "verbose output, -vvv means verbose level 3"},
+		{Names: []string{"x"}, Argtype: getopt.Y, Help: "dump binary file to text"},
 		{Names: []string{"s"}, Argtype: getopt.Y, Help: "enable smart mode", Hide: false},
 		{Names: []string{"S"}, Link: "s", Hide: true},
 
@@ -28,6 +30,9 @@ func main() {
 		{Names: []string{"n"}, Argtype: getopt.N, Help: "sed -n option, will forward to child sed process", Forward: true},
 	}
 
+	// debug info
+	fmt.Println("Debug info:")
+	fmt.Println(strings.Repeat("-", 80))
 	fmt.Println(nargv)
 	getopt.GetUsage(options)
 
@@ -42,6 +47,25 @@ func main() {
 	}
 	fmt.Println()
 
-	fmt.Println("params: ", args)
-	fmt.Println("forward: ", forward)
+	fmt.Println("params:", args)
+	fmt.Println("forward:", forward)
+	fmt.Println(strings.Repeat("-", 80))
+
+	// start your code
+	if _, ok := optmap["h"]; ok {
+		fmt.Println("Usage:")
+		//getopt.GetUsage(options)
+	}
+	if val, ok := optmap["f"]; ok {
+		filelist := val
+		fmt.Println("file list:", filelist)
+	}
+	if val, ok := optmap["v"]; ok {
+		verboselevel := len(val)
+		fmt.Println("verbose level:", verboselevel)
+	}
+	if val, ok := optmap["s"]; ok {
+		smartmode := val[len(val)-1]
+		fmt.Println("smart mode:", smartmode)
+	}
 }
