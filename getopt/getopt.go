@@ -240,7 +240,7 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 			case N:
 				optmap[optname] = append(optmap[optname], "set")
 			default:
-				optmap[optname] = append(optmap[optname], optarg)
+				optmap[optname] = append([]string{optarg}, optmap[optname]...)
 			}
 		case NEEDARG:
 			invalid_opts = append(invalid_opts, "option: '" + optname + "' need argument")

@@ -65,7 +65,7 @@ func main() {
 		fmt.Println("verbose level:", verboselevel)
 	}
 	if val, ok := optmap["s"]; ok {
-		smartmode := val[len(val)-1]
+		smartmode := val[0]
 		fmt.Println("smart mode:", smartmode)
 	}
 }
