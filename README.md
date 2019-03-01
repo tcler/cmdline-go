@@ -14,6 +14,6 @@ see here: https://github.com/tcler/getopt.go/blob/master/main.go
 ```
 git clone https://github.com/tcler/getopt.go
 cd getopt.go
-export GOPATH=$PWD
+go get github.com/tcler/getopt.go/getopt
 go run main.go -h -H -f file --file file2 -e 's/abc/xyz/'  -r -n  -s A -s B -S C -i -x xfile --wenj file3 --www -aa -vvv -- -0 -y
 ```

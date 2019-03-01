@@ -3,8 +3,8 @@ package main
 import (
 	"fmt";
 	"os";
-	"getopt";
 	"strings";
+	"github.com/tcler/getopt.go/getopt";
 )
 
 func main() {
