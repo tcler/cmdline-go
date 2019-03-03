@@ -105,12 +105,16 @@ func argparse (options []Option, argv []string) (ParseStat, []string, string, st
 		} else {
 			opttype = "short"
 		}
+
 		idx := strings.Index(optname, "=")
 		if idx > -1 {
 			ooptname := optname
-			optname = ooptname[:idx]
-			val = ooptname[idx+1:]
-			hasval = true
+			toptname := ooptname[:idx]
+			if nil != getOptObj(options, toptname, false, nil) {
+				optname = toptname
+				val = ooptname[idx+1:]
+				hasval = true
+			}
 		}
 
 		opt = getOptObj(options, optname, false, nil)
@@ -142,6 +146,7 @@ func argparse (options []Option, argv []string) (ParseStat, []string, string, st
 			}
 		} else if hasval == false && opttype == "short" && len(optname) > 1 {
 			var argv2 []string
+			ShortLoop:
 			for (len(optname) > 0) {
 				s := optname[0:1]
 				optname = optname[1:]
@@ -166,6 +171,7 @@ func argparse (options []Option, argv []string) (ParseStat, []string, string, st
 					switch argtype {
 					case O:
 						argv2 = append(argv2, "-" + s + "=" + optname)
+						break ShortLoop
 					default:
 						argv2 = append(argv2, "-" + s)
 					}
