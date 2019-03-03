@@ -19,6 +19,7 @@ func main() {
 		{Names: []string{"h", "H", "help"}, Argtype: getopt.N, Help: "out put the usage info"},
 		{Names: []string{"f", "F", "file"}, Argtype: getopt.M, Help: "file to be parse"},
 		{Names: []string{"wenj", "wenjian"}, Link: "f", Hide: true, Help: "deprecated use f instead"},
+		{Names: []string{"o"}, Argtype: getopt.O, Help: "mount option"},
 		{Names: []string{"v"}, Argtype: getopt.N, Help: "verbose output, -vvv means verbose level 3"},
 		{Names: []string{"x"}, Argtype: getopt.Y, Help: "dump binary file to text"},
 		{Names: []string{"s"}, Argtype: getopt.Y, Help: "enable smart mode", Hide: false},
@@ -38,7 +39,7 @@ func main() {
 
 	optmap, invalid_optmap, args, forward = getopt.GetOptions(options, nargv)
 	for k, v := range optmap {
-		fmt.Printf("opt(%s) = %v\n", k, v)
+		fmt.Printf("opt(%s) = %#v\n", k, v)
 	}
 	fmt.Println()
 
@@ -47,8 +48,8 @@ func main() {
 	}
 	fmt.Println()
 
-	fmt.Println("params:", args)
-	fmt.Println("forward:", forward)
+	fmt.Printf("params: %#v\n", args)
+	fmt.Printf("forward: %#v\n", forward)
 	fmt.Println(strings.Repeat("-", 80))
 
 	// start your code
@@ -58,7 +59,7 @@ func main() {
 	}
 	if val, ok := optmap["f"]; ok {
 		filelist := val
-		fmt.Println("file list:", filelist)
+		fmt.Printf("file list: %#v\n", filelist)
 	}
 	if val, ok := optmap["v"]; ok {
 		verboselevel := len(val)
@@ -66,6 +67,6 @@ func main() {
 	}
 	if val, ok := optmap["s"]; ok {
 		smartmode := val[0]
-		fmt.Println("smart mode:", smartmode)
+		fmt.Printf("smart mode: \"%s\"\n", smartmode)
 	}
 }
