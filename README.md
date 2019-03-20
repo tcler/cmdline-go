@@ -14,7 +14,7 @@ see here: https://github.com/tcler/getopt.go/blob/master/main.go
 ```
 git clone https://github.com/tcler/getopt.go
 cd getopt.go
-go get github.com/tcler/getopt.go/getopt
+go get -u github.com/tcler/getopt.go/getopt
 go run main.go -h -H -f file --file file2 -e 's/abc/xyz/'  -r -n  -s=A -oa=b -S ''  -i -x xfile --wenj=file3 --www -aa -vvv -S DD -- -0 -y
 
 
