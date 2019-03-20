@@ -248,6 +248,10 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 			default:
 				optmap[optname] = append([]string{optarg}, optmap[optname]...)
 			}
+
+			for _, n := range opt.Names[1:] {
+				optmap[n] = optmap[optname]
+			}
 		case NEEDARG:
 			invalid_opts = append(invalid_opts, "option: '" + optname + "' need argument")
 		case UNKNOWN:

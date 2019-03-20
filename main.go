@@ -53,11 +53,11 @@ func main() {
 	fmt.Println(strings.Repeat("-", 80))
 
 	// start your code
-	if _, ok := optmap["h"]; ok {
-		fmt.Println("Usage:")
+	if _, ok := optmap["help"]; ok {
+		fmt.Println("Usage: ...")
 		//getopt.GetUsage(options)
 	}
-	if val, ok := optmap["f"]; ok {
+	if val, ok := optmap["file"]; ok {
 		filelist := val
 		fmt.Printf("file list: %#v\n", filelist)
 	}
