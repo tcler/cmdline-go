@@ -9,7 +9,7 @@ features in my cmdline-go:
 4. forward option
 
 # Example code
-see here: https://github.com/tcler/cmdline-go/blob/master/main.go
+see here: https://github.com/tcler/cmdline-go/blob/master/main_cmdline.go
 
 ```
 git clone https://github.com/tcler/cmdline-go
