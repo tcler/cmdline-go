@@ -14,8 +14,11 @@ see here: https://github.com/tcler/cmdline-go/blob/master/main.go
 ```
 git clone https://github.com/tcler/cmdline-go
 cd cmdline-go
+
+go get -u github.com/tcler/cmdline-go/cmdline
+go run main_cmdline.go -h -H -f file --file file2 -e 's/abc/xyz/'  -r -n  -s=A -oa=b -S ''  -i -x xfile --wenj=file3 --www -aa -vvv -S DD -- -0 -y
+
+# or:
 go get -u github.com/tcler/cmdline-go/getopt
 go run main_getopt.go -h -H -f file --file file2 -e 's/abc/xyz/'  -r -n  -s=A -oa=b -S ''  -i -x xfile --wenj=file3 --www -aa -vvv -S DD -- -0 -y
-
-
 ```
