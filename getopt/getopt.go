@@ -43,6 +43,13 @@ type Option struct {
    Forward bool
 }
 
+type Cmdline struct {
+   OptionMap map[string][]string
+   InvalidOptions []string
+   ForwardOptions []string
+   Args []string
+}
+
 func getOptObj(options []Option, optname string, followlink bool, nesting *int) *Option {
 	if followlink {
 		*nesting += 1
@@ -190,11 +197,9 @@ func argparse (options []Option, argv []string) (ParseStat, []string, string, st
 	return result, nargv, optname, optarg
 }
 
-func GetOptions (options []Option, argv []string) (map[string][]string, []string, []string, []string) {
-	var optmap = make(map[string][]string)
-	var invalid_opts = []string{}
-	var args []string
-	var forward []string
+func GetOptions (options []Option, argv []string) (Cmdline) {
+	var cl Cmdline
+	cl.OptionMap = make(map[string][]string)
 
 	var opt *Option
 	var optname string
@@ -217,7 +222,7 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 		case AGAIN:
 			continue
 		case NOTOPT:
-			args = append(args, optarg)
+			cl.Args = append(cl.Args, optarg)
 		case KNOWN:
 			nesting = 0
 			opt = getOptObj(options, optname, true, &nesting)
@@ -230,40 +235,40 @@ func GetOptions (options []Option, argv []string) (map[string][]string, []string
 			if opt.Forward {
 				switch opt.Argtype {
 				case N:
-					forward = append(forward, prefix + optname)
+					cl.ForwardOptions = append(cl.ForwardOptions, prefix + optname)
 				default:
 					if prefix == "--" {
-						forward = append(forward, prefix + optname + "=" + optarg)
+						cl.ForwardOptions = append(cl.ForwardOptions, prefix + optname + "=" + optarg)
 					} else {
-						forward = append(forward, prefix + optname + " " + optarg)
+						cl.ForwardOptions = append(cl.ForwardOptions, prefix + optname + " " + optarg)
 					}
 				}
 				continue
 			}
 			switch opt.Argtype {
 			case M:
-				optmap[optname] = append(optmap[optname], optarg)
+				cl.OptionMap[optname] = append(cl.OptionMap[optname], optarg)
 			case N:
-				optmap[optname] = append(optmap[optname], "set")
+				cl.OptionMap[optname] = append(cl.OptionMap[optname], "set")
 			default:
-				optmap[optname] = append([]string{optarg}, optmap[optname]...)
+				cl.OptionMap[optname] = append([]string{optarg}, cl.OptionMap[optname]...)
 			}
 
 			for _, n := range opt.Names[1:] {
-				optmap[n] = optmap[optname]
+				cl.OptionMap[n] = cl.OptionMap[optname]
 			}
 		case NEEDARG:
-			invalid_opts = append(invalid_opts, "option: '" + optname + "' need argument")
+			cl.InvalidOptions = append(cl.InvalidOptions, "option: '" + optname + "' need argument")
 		case UNKNOWN:
-			invalid_opts = append(invalid_opts, "option: '" + optname + "' undefined")
+			cl.InvalidOptions = append(cl.InvalidOptions, "option: '" + optname + "' undefined")
 		case END:
 			//end of nargv or get --
-			args = append(args, nargv...)
+			cl.Args = append(cl.Args, nargv...)
 			break Parseloop
 		}
 	}
 
-	return optmap, invalid_opts, args, forward
+	return cl
 }
 
 func genOptdesc(names []string) string {
