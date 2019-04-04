@@ -9,7 +9,7 @@ import (
 
 func main() {
 	var nargv []string = os.Args[1:]
-	var cmdline getopt.Cmdline
+	var cli getopt.Cmdline
 
 	var options = []getopt.Option {
 		{Help: "Options group1:"},
@@ -34,35 +34,35 @@ func main() {
 	fmt.Println(nargv)
 	getopt.GetUsage(options)
 
-	cmdline = getopt.GetOptions(options, nargv)
-	for k, v := range cmdline.OptionMap {
+	cli = getopt.GetOptions(options, nargv)
+	for k, v := range cli.OptionMap {
 		fmt.Printf("opt(%s) = %#v\n", k, v)
 	}
 	fmt.Println()
 
-	for _, v := range cmdline.InvalidOptions {
+	for _, v := range cli.InvalidOptions {
 		fmt.Println(v)
 	}
 	fmt.Println()
 
-	fmt.Printf("params: %#v\n", cmdline.Args)
-	fmt.Printf("forward: %#v\n", cmdline.ForwardOptions)
+	fmt.Printf("params: %#v\n", cli.Args)
+	fmt.Printf("forward: %#v\n", cli.ForwardOptions)
 	fmt.Println(strings.Repeat("-", 80))
 
 	// start your code
-	if _, ok := cmdline.OptionMap["help"]; ok {
+	if _, ok := cli.OptionMap["help"]; ok {
 		fmt.Println("Usage: ...")
 		//getopt.GetUsage(options)
 	}
-	if val, ok := cmdline.OptionMap["file"]; ok {
+	if val, ok := cli.OptionMap["file"]; ok {
 		filelist := val
 		fmt.Printf("file list: %#v\n", filelist)
 	}
-	if val, ok := cmdline.OptionMap["v"]; ok {
+	if val, ok := cli.OptionMap["v"]; ok {
 		verboselevel := len(val)
 		fmt.Println("verbose level:", verboselevel)
 	}
-	if val, ok := cmdline.OptionMap["s"]; ok {
+	if val, ok := cli.OptionMap["s"]; ok {
 		smartmode := val[0]
 		fmt.Printf("smart mode: \"%s\"\n", smartmode)
 	}
