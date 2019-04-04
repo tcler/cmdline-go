@@ -4,7 +4,7 @@ import (
 	"fmt";
 	"os";
 	"strings";
-	"github.com/tcler/getopt.go/getopt";
+	"github.com/tcler/cmdline-go/getopt";
 )
 
 func main() {
