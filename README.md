@@ -1,5 +1,5 @@
 # cmdline-go
-A getopt implementation in golang. Very similar to [getopt.tcl](https://github.com/tcler/getopt.tcl)
+A getopt/argparser implementation in golang. Very similar to [getopt.tcl](https://github.com/tcler/getopt.tcl)
 
 features in my cmdline-go:
 1. generate usage/help info from option list.
