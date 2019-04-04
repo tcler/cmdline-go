@@ -271,6 +271,20 @@ func Parse (options []Option, argv []string) (Cmdline) {
 	return cl
 }
 
+func (cl Cmdline) Has (key string) (bool) {
+	if _, ok := cl.OptionMap[key]; ok {
+		return true
+	}
+	return false
+}
+func (cl Cmdline) Get (key string) ([]string) {
+	val, ok := cl.OptionMap[key]
+	if ok {
+		return val
+	}
+	return nil
+}
+
 func genOptdesc(names []string) string {
 	var ss string
 	var ls string

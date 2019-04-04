@@ -50,20 +50,19 @@ func main() {
 	fmt.Println(strings.Repeat("-", 80))
 
 	// start your code
-	if _, ok := cli.OptionMap["help"]; ok {
+	if cli.Has("help") {
 		fmt.Println("Usage: ...")
 		//cli.GetUsage(options)
 	}
-	if val, ok := cli.OptionMap["file"]; ok {
-		filelist := val
-		fmt.Printf("file list: %#v\n", filelist)
+	if cli.Has("file") {
+		fmt.Printf("file list: %#v\n", cli.Get("file"))
 	}
-	if val, ok := cli.OptionMap["v"]; ok {
-		verboselevel := len(val)
+	if cli.Has("v") {
+		verboselevel := len(cli.Get("v"))
 		fmt.Println("verbose level:", verboselevel)
 	}
-	if val, ok := cli.OptionMap["s"]; ok {
-		smartmode := val[0]
+	if cli.Has("s") {
+		smartmode := cli.Get("s")[0]
 		fmt.Printf("smart mode: \"%s\"\n", smartmode)
 	}
 }
