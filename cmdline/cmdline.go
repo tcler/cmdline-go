@@ -35,7 +35,7 @@ const (
 )
 
 type Option struct {
-	Names []string
+	Names string
 	Argtype ArgType
 	Help string
 	Link string
@@ -63,7 +63,8 @@ func getOptObj(options []Option, optname string, followlink bool, nesting *int) 
 	}
 
 	for _, opt := range options {
-		for _, n := range opt.Names {
+		names := strings.Split(opt.Names, " ")
+		for _, n := range names {
 			if n == optname {
 				if followlink && len(opt.Link) > 0 {
 					return getOptObj(options, opt.Link, followlink, nesting)
@@ -134,7 +135,8 @@ func argparse (options []Option, argv []string) (parseStat, []string, string, st
 				}
 			}
 
-			optname = opt.Names[0]
+			names := strings.Split(opt.Names, " ")
+			optname = names[0]
 			result = KNOWN
 			switch argtype {
 			case O:
@@ -230,7 +232,7 @@ func Parse (options []Option, argv []string) (Cmdline) {
 				fmt.Fprintf(os.Stderr, "[Warn] (%s) there might be link loop in your option list\n", optname)
 				opt = getOptObj(options, optname, false, nil)
 			}
-			optname = opt.Names[0]
+			optname = strings.Split(opt.Names, " ")[0]
 
 			if opt.Forward {
 				switch opt.Argtype {
@@ -254,7 +256,7 @@ func Parse (options []Option, argv []string) (Cmdline) {
 				cl.OptionMap[optname] = append([]string{optarg}, cl.OptionMap[optname]...)
 			}
 
-			for _, n := range opt.Names[1:] {
+			for _, n := range strings.Split(opt.Names, " ")[1:] {
 				cl.OptionMap[n] = cl.OptionMap[optname]
 			}
 		case NEEDARG:
@@ -285,11 +287,11 @@ func (cl Cmdline) Get (key string) ([]string) {
 	return nil
 }
 
-func genOptdesc(names []string) string {
+func genOptdesc(names string) string {
 	var ss string
 	var ls string
 
-	for _, n := range names {
+	for _, n := range strings.Split(names, " ") {
 		if len(n) == 1 {
 			ss += " -" + n
 		} else {

@@ -13,19 +13,19 @@ func main() {
 
 	var options = []cmdline.Option {
 		{Help: "Options group1:"},
-		{Names: []string{"h", "H", "help"}, Argtype: cmdline.N, Help: "out put the usage info"},
-		{Names: []string{"f", "F", "file"}, Argtype: cmdline.M, Help: "file to be parse"},
-		{Names: []string{"wenj", "wenjian"}, Link: "f", Hide: true, Help: "deprecated use f instead"},
-		{Names: []string{"o"}, Argtype: cmdline.O, Help: "mount option"},
-		{Names: []string{"v"}, Argtype: cmdline.N, Help: "verbose output, -vvv means verbose level 3"},
-		{Names: []string{"x"}, Argtype: cmdline.Y, Help: "dump binary file to text"},
-		{Names: []string{"s"}, Argtype: cmdline.Y, Help: "enable smart mode", Hide: false},
-		{Names: []string{"S"}, Link: "s", Hide: true},
+		{Names: "h H help", Argtype: cmdline.N, Help: "out put the usage info"},
+		{Names: "f F file", Argtype: cmdline.M, Help: "file to be parse"},
+		{Names: "wenj wenjian", Link: "f", Hide: true, Help: "deprecated use f instead"},
+		{Names: "o", Argtype: cmdline.O, Help: "mount option"},
+		{Names: "v", Argtype: cmdline.N, Help: "verbose output, -vvv means verbose level 3"},
+		{Names: "x", Argtype: cmdline.Y, Help: "dump binary file to text"},
+		{Names: "s", Argtype: cmdline.Y, Help: "enable smart mode", Hide: false},
+		{Names: "S", Link: "s", Hide: true},
 
 		{Help: "\nOptions group2:"},
-		{Names: []string{"e"}, Argtype: cmdline.M, Help: "sed -e option, will forward to child sed process", Forward: true},
-		{Names: []string{"r"}, Argtype: cmdline.N, Help: "sed -r option, will forward to child sed process", Forward: true},
-		{Names: []string{"n"}, Argtype: cmdline.N, Help: "sed -n option, will forward to child sed process", Forward: true},
+		{Names: "e", Argtype: cmdline.M, Help: "sed -e option, will forward to child sed process", Forward: true},
+		{Names: "r", Argtype: cmdline.N, Help: "sed -r option, will forward to child sed process", Forward: true},
+		{Names: "n", Argtype: cmdline.N, Help: "sed -n option, will forward to child sed process", Forward: true},
 	}
 
 	// debug info
