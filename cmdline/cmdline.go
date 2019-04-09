@@ -273,18 +273,32 @@ func Parse (options []Option, argv []string) (Cmdline) {
 	return cl
 }
 
-func (cl Cmdline) Has (key string) (bool) {
+func (cl Cmdline) HasOption (key string) (bool) {
 	if _, ok := cl.OptionMap[key]; ok {
 		return true
 	}
 	return false
 }
-func (cl Cmdline) Get (key string) ([]string) {
+func (cl Cmdline) GetOptionArgList (key string) ([]string) {
 	val, ok := cl.OptionMap[key]
 	if ok {
 		return val
 	}
 	return nil
+}
+func (cl Cmdline) GetOptionArgString (key string) (string) {
+	val, ok := cl.OptionMap[key]
+	if ok {
+		return val[0]
+	}
+	return ""
+}
+func (cl Cmdline) GetOptionNumber (key string) (int) {
+	val, ok := cl.OptionMap[key]
+	if ok {
+		return len(val)
+	}
+	return 0
 }
 
 func genOptdesc(names string) string {
